@@ -1,30 +1,70 @@
 import pandas as pd
 
 def generate_main_fields(careareas,metadata):
-    #testing
-    minaxes = careareas.min()
-    maxaxes = careareas.max()
+
+    mainfields_size = metadata.iloc[0,0]
+    
+    id = []
+    x1 = []
+    x2 = []
+    y1 = []
+    y2 = []
+
+    id_index=0
+    for index,row in careareas.iterrows():        
+        x1.append(row["X1"])
+        x2.append(row["X1"] + mainfields_size)
+        y1.append(row["Y1"])
+        y2.append(row["Y1"] + mainfields_size)
+    
+        # update id for mainfields
+        id.append(id_index)
+        id_index += 1
+
     mainfields = pd.DataFrame({
-        'ID' :[0],
-        'X1' :[minaxes.iloc[1]],
-        'X2' :[maxaxes.iloc[2]],
-        'Y1' :[minaxes.iloc[3]],
-        'Y2' :[maxaxes.iloc[4]],
+        'ID' :id,
+        'X1' :x1,
+        'X2' :x2,
+        'Y1' :y1,
+        'Y2' :y2,
     })
     
     return mainfields
-# careareas.to_csv("result/careareas.csv",index=False)
+
 def generate_sub_fields(careareas,metadata):
-    #testing
-    minaxes = careareas.min()
-    maxaxes = careareas.max()
+
+    subfields_size = metadata.iloc[0,1]
+
+    id = []
+    x1 = []
+    x2 = []
+    y1 = []
+    y2 = []
+    mfid = []
+    
+    id_index=0
+    mfid_index=0
+    for index,row in careareas.iterrows():        
+        x1.append(row["X1"])
+        x2.append(row["X1"] + subfields_size)
+        y1.append(row["Y1"])
+        y2.append(row["Y1"] + subfields_size)
+    
+        # update id for mainfields
+        id.append(id_index)
+        mfid.append(mfid_index)
+        id_index += 1
+        mfid_index += 1
+
+
+
     subfields = pd.DataFrame({
-        'ID' :[0],
-        'X1' :[minaxes.iloc[1]],
-        'X2' :[maxaxes.iloc[2]-50],
-        'Y1' :[minaxes.iloc[3]],
-        'Y2' :[maxaxes.iloc[4]-50],
-        'MF ID':[0],
+        'ID' :id,
+        'X1' :x1,
+        'X2' :x2,
+        'Y1' :y1,
+        'Y2' :y2,
+        'MF ID':mfid,
     })
     
     return subfields
@@ -96,9 +136,9 @@ def milestone_6():
     subfields.to_csv("result/milestone_6/subfields.csv",header=False,index=False)
 
 
-milestone_1()
+# milestone_1()
 milestone_2()
-milestone_3()
-milestone_4()
-milestone_5()
-milestone_6()
+# milestone_3()
+# milestone_4()
+# milestone_5()
+# milestone_6()
