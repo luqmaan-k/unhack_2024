@@ -7,6 +7,14 @@ def is_in(id,x1,x2,y1,y2,carefield):
             return True,id[i]
     return False,None
 
+# ⬇️takes too long to run...so cant prevent overlapping subfields
+# def is_overlap_subfield(sf_id,sf_x1,sf_x2,sf_y1,sf_y2,subfields_size,tempx1,tempy1):
+#     print("in here")
+#     for i in sf_id:
+#         if(sf_x1[i] >= tempx1 ) and (sf_y1[i] >= tempy1):
+#             return True
+#     return False
+
 def generate_sub_fields(sf_id,sf_x1,sf_x2,sf_y1,sf_y2,mfid,subfields_size,sf_id_index,mainfield_id,carefield):
     tempx1 = carefield["X1"]
     tempy1 = carefield["Y1"]
@@ -14,14 +22,15 @@ def generate_sub_fields(sf_id,sf_x1,sf_x2,sf_y1,sf_y2,mfid,subfields_size,sf_id_
     while(True):
         if tempx1 > carefield["X2"]:
             tempx1 = carefield["X1"]
-            tempy1 += subfields_size
+            tempy1 += subfields_size[0]
         if tempy1 > carefield["Y2"]:
             break
+        # if not is_overlap_subfield(sf_id,sf_x1,sf_x2,sf_y1,sf_y2,subfields_size,tempx1,tempy1):
         sf_x1.append(tempx1)
-        sf_x2.append(tempx1 + subfields_size)
+        sf_x2.append(tempx1 + subfields_size[0])
         sf_y1.append(tempy1)
-        sf_y2.append(tempy1+subfields_size)
-        tempx1 += subfields_size
+        sf_y2.append(tempy1+subfields_size[0])
+        tempx1 += subfields_size[0]
         # update id for subfields
         sf_id.append(sf_id_index)
         mfid.append(mainfield_id)
@@ -30,7 +39,8 @@ def generate_sub_fields(sf_id,sf_x1,sf_x2,sf_y1,sf_y2,mfid,subfields_size,sf_id_
 def generate_main_fields(careareas,metadata):
 
     mainfields_size = metadata.iloc[0,0]
-    subfields_size = metadata.iloc[0,1]
+    subfields_size = []
+    subfields_size.append(metadata.iloc[0,1])
     id = []
     x1 = []
     x2 = []
@@ -149,8 +159,14 @@ def milestone_6():
 
 
 milestone_1()
+print("milestone 1")
 milestone_2()
+print("milestone 2")
 milestone_3()
+print("milestone 3")
 milestone_4()
+print("milestone 4")
 milestone_5()
+print("milestone 5")
 milestone_6()
+print("milestone 6")
