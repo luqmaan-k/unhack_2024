@@ -1,5 +1,8 @@
 import pandas as pd
 
+def is_in(mainfield,row):
+    return False
+
 def generate_main_fields(careareas,metadata):
 
     mainfields_size = metadata.iloc[0,0]
@@ -12,10 +15,14 @@ def generate_main_fields(careareas,metadata):
 
     id_index=0
     for index,row in careareas.iterrows():        
-        x1.append(row["X1"])
-        x2.append(row["X1"] + mainfields_size)
-        y1.append(row["Y1"])
-        y2.append(row["Y1"] + mainfields_size)
+        if is_in(id,row):
+            continue    
+        else:
+            #if row not in mainfield area generate a mainfield
+            x1.append(row["X1"])
+            x2.append(row["X1"] + mainfields_size)
+            y1.append(row["Y1"])
+            y2.append(row["Y1"] + mainfields_size)
     
         # update id for mainfields
         id.append(id_index)
@@ -31,7 +38,7 @@ def generate_main_fields(careareas,metadata):
     
     return mainfields
 
-def generate_sub_fields(careareas,metadata):
+def generate_sub_fields(careareas,metadata,mainfields):
 
     subfields_size = metadata.iloc[0,1]
 
@@ -74,7 +81,7 @@ def milestone_1():
     metadata = pd.read_csv("data/Dataset-0/Dataset-0/1st/metadata.csv")
 
     mainfields = generate_main_fields(careareas,metadata)
-    subfields = generate_sub_fields(careareas,metadata)
+    subfields = generate_sub_fields(careareas,metadata,mainfields)
 
     careareas.to_csv("result/milestone_1/careareas.csv",header=False,index=False)
     mainfields.to_csv("result/milestone_1/mainfields.csv",header=False,index=False)
@@ -85,7 +92,7 @@ def milestone_2():
     metadata = pd.read_csv("data/Student-Dataset-1/Dataset-1/2nd/metadata.csv")
 
     mainfields = generate_main_fields(careareas,metadata)
-    subfields = generate_sub_fields(careareas,metadata)
+    subfields = generate_sub_fields(careareas,metadata,mainfields)
 
     careareas.to_csv("result/milestone_2/careareas.csv",header=False,index=False)
     mainfields.to_csv("result/milestone_2/mainfields.csv",header=False,index=False)
@@ -96,7 +103,7 @@ def milestone_3():
     metadata = pd.read_csv("data/Student-Dataset-1/Dataset-1/3rd/metadata.csv")
 
     mainfields = generate_main_fields(careareas,metadata)
-    subfields = generate_sub_fields(careareas,metadata)
+    subfields = generate_sub_fields(careareas,metadata,mainfields)
 
     careareas.to_csv("result/milestone_3/careareas.csv",header=False,index=False)
     mainfields.to_csv("result/milestone_3/mainfields.csv",header=False,index=False)
@@ -107,7 +114,7 @@ def milestone_4():
     metadata = pd.read_csv("data/Student-Dataset-1/Dataset-1/4th/metadata.csv")
 
     mainfields = generate_main_fields(careareas,metadata)
-    subfields = generate_sub_fields(careareas,metadata)
+    subfields = generate_sub_fields(careareas,metadata,mainfields)
 
     careareas.to_csv("result/milestone_4/careareas.csv",header=False,index=False)
     mainfields.to_csv("result/milestone_4/mainfields.csv",header=False,index=False)
@@ -118,7 +125,7 @@ def milestone_5():
     metadata = pd.read_csv("data/Student-Dataset-1/Dataset-1/5th/metadata.csv")
 
     mainfields = generate_main_fields(careareas,metadata)
-    subfields = generate_sub_fields(careareas,metadata)
+    subfields = generate_sub_fields(careareas,metadata,mainfields)
 
     careareas.to_csv("result/milestone_5/careareas.csv",header=False,index=False)
     mainfields.to_csv("result/milestone_5/mainfields.csv",header=False,index=False)
@@ -129,7 +136,7 @@ def milestone_6():
     metadata = pd.read_csv("data/Student-Dataset-1/Dataset-1/6th/metadata.csv")
 
     mainfields = generate_main_fields(careareas,metadata)
-    subfields = generate_sub_fields(careareas,metadata)
+    subfields = generate_sub_fields(careareas,metadata,mainfields)
 
     careareas.to_csv("result/milestone_6/careareas.csv",header=False,index=False)
     mainfields.to_csv("result/milestone_6/mainfields.csv",header=False,index=False)
